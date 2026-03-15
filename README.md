@@ -1,6 +1,12 @@
 # autoescola
 - projeto Java Back End com Spring Boot para uma Auto Escola
 
+# Integrantes
+- rm553187 - Gabriel Borba
+- rm553842 - Gustavo Gouvêa
+- rm554223 - Pedro Henrique Mello
+
+
 # MySQL
 - iniciar servidor por cmd
     ```powershell
@@ -32,46 +38,46 @@
 
 
 - Body da requisição Post (Instrutor: http://localhost:8080/instrutores)
-```json
-{
-    "nome": "Serjo",
-    "email": "serjo@gmail.com",
-    "cnh": "93847352617",
-    "especialidade": "ONIBUS",
-    "endereco":{
-        "logradouro": "Rua Ibo",
-        "numero": "300",
-        "complemento": "Apto. 91",
-        "bairro": "Vila Regente Feijo",
-        "cidade": "São Paulo",
-        "uf": "SP",
-        "cep": "03346000"
+    ```json
+    {
+        "nome": "Serjo",
+        "email": "serjo@gmail.com",
+        "cnh": "93847352617",
+        "especialidade": "ONIBUS",
+        "endereco":{
+            "logradouro": "Rua Ibo",
+            "numero": "300",
+            "complemento": "Apto. 91",
+            "bairro": "Vila Regente Feijo",
+            "cidade": "São Paulo",
+            "uf": "SP",
+            "cep": "03346000"
+        }
     }
-}
-```
+    ```
 
 ou
 
-```json
-{
-    "nome": "{{$randomFullName}}",
-    "email": "{{$randomEmail}}",
-    "telefone": "{{$randomPhoneNumber}}",
-    "cnh": "01234567890",
-    "especialidade": "CAMINHOES",
-    "endereco": {
-        "logradouro": "{{$randomStreetName}}",
-        "numero": "{{$randomInt}}",
-        "complemento": "Apto. {{$randomInt}}",
-        "bairro": "{{$randomCity}}",
-        "cidade": "{{$randomCity}}",
-        "uf": "SP",
-        "cep": "87654321"
+    ```json
+    {
+        "nome": "{{$randomFullName}}",
+        "email": "{{$randomEmail}}",
+        "telefone": "{{$randomPhoneNumber}}",
+        "cnh": "01234567890",
+        "especialidade": "CAMINHOES",
+        "endereco": {
+            "logradouro": "{{$randomStreetName}}",
+            "numero": "{{$randomInt}}",
+            "complemento": "Apto. {{$randomInt}}",
+            "bairro": "{{$randomCity}}",
+            "cidade": "{{$randomCity}}",
+            "uf": "SP",
+            "cep": "87654321"
+        }
     }
-}
-```
+    ```
 
-# Endpoint
+# Endpoints
 - Ex
     - http://localhost:8080/instrutores?size=5&page=0
         - página 1(0) da lista de instrutores paginados de 5 em 5
