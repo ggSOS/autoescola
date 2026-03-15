@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.autoescola.domain.dto.DadosAtualizacaoInstrutor;
-import br.com.autoescola.domain.dto.DadosDetalhamentoInstrutorDTO;
-import br.com.autoescola.domain.dto.InstrutorDTO;
-import br.com.autoescola.domain.dto.ListagemInstrutorDTO;
+import br.com.autoescola.domain.dto.instrutor.InstrutorUpdateDTO;
+import br.com.autoescola.domain.dto.instrutor.DadosDetalhamentoInstrutorDTO;
+import br.com.autoescola.domain.dto.instrutor.InstrutorCreateDTO;
+import br.com.autoescola.domain.dto.instrutor.ListagemInstrutorDTO;
 import br.com.autoescola.domain.model.Instrutor;
 import br.com.autoescola.domain.repository.InstrutorRepository;
 import jakarta.transaction.Transactional;
@@ -38,7 +38,7 @@ public class InstrutorController {
     @Transactional
     // @PreAuthorize("hasAnyRole('ADMIN', 'USER')") se autorizacao pelo Controller estiver habilitada
     public ResponseEntity<DadosDetalhamentoInstrutorDTO> cadastrarInstrutor(
-            @RequestBody @Valid InstrutorDTO dados,
+            @RequestBody @Valid InstrutorCreateDTO dados,
             UriComponentsBuilder uriBuilder) {
         Instrutor instrutor = new Instrutor(dados);
         repository.save(instrutor);
@@ -63,7 +63,7 @@ public class InstrutorController {
 
     @PutMapping
     @Transactional
-    public ResponseEntity<DadosDetalhamentoInstrutorDTO> atualizarInstrutores(@RequestBody @Valid DadosAtualizacaoInstrutor dados) {
+    public ResponseEntity<DadosDetalhamentoInstrutorDTO> atualizarInstrutores(@RequestBody @Valid InstrutorUpdateDTO dados) {
         Instrutor instrutor = repository.getReferenceById(dados.id());
         instrutor.atualizarInformacoes(dados);
         // Criar outro DTO para filtrar dados de saida caso necessario

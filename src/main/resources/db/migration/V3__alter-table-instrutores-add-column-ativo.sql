@@ -3,7 +3,7 @@
 Alter Table INSTRUTORES
 Add
 (
-    ativo TinyInt
+    ativo TinyInt   Not Null
 );
 
 Update INSTRUTORES

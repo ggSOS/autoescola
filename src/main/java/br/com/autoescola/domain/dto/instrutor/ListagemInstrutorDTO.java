@@ -1,4 +1,4 @@
-package br.com.autoescola.domain.dto;
+package br.com.autoescola.domain.dto.instrutor;
 
 import br.com.autoescola.domain.enums.Especialidade;
 import br.com.autoescola.domain.model.Instrutor;

@@ -1,4 +1,4 @@
-package br.com.autoescola.domain.dto;
+package br.com.autoescola.domain.dto.instrutor;
 
 import br.com.autoescola.domain.enums.Especialidade;
 import br.com.autoescola.domain.model.Instrutor;
@@ -12,9 +12,8 @@ public record DadosDetalhamentoInstrutorDTO(
         String telefone,
         String cnh,
         Especialidade especialidade,
-        EnderecoVO endereco
-) {
-    public DadosDetalhamentoInstrutorDTO(Instrutor instrutor){
+        EnderecoVO endereco) {
+    public DadosDetalhamentoInstrutorDTO(Instrutor instrutor) {
         this(
                 instrutor.getId(),
                 instrutor.getAtivo(),
@@ -23,7 +22,6 @@ public record DadosDetalhamentoInstrutorDTO(
                 instrutor.getTelefone(),
                 instrutor.getCnh(),
                 instrutor.getEspecialidade(),
-                instrutor.getEndereco()
-                );
+                instrutor.getEndereco());
     }
 }

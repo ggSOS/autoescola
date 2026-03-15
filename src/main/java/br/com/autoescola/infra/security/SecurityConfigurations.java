@@ -17,7 +17,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 // @EnableWebSecurity permitiria autorizazao nos proprios controllers
 public class SecurityConfigurations {
 
-
     @Autowired
     private SecurityFilter securityFilter;
 
@@ -30,21 +29,21 @@ public class SecurityConfigurations {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/health-check")
-                            .permitAll()
+                        .permitAll()
                         .requestMatchers(HttpMethod.POST, "/instrutores")
-                            .hasAnyAuthority("ADMIN", "OWNER")
+                        .hasAnyAuthority("ADMIN", "OWNER")
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception{
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

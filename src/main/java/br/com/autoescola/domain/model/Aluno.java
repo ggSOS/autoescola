@@ -1,13 +1,10 @@
 package br.com.autoescola.domain.model;
 
-import br.com.autoescola.domain.dto.instrutor.InstrutorUpdateDTO;
-import br.com.autoescola.domain.dto.instrutor.InstrutorCreateDTO;
-import br.com.autoescola.domain.enums.Especialidade;
+import br.com.autoescola.domain.dto.aluno.AlunoCreateDTO;
+import br.com.autoescola.domain.dto.aluno.AlunoUpdateDTO;
 import br.com.autoescola.domain.vo.EnderecoVO;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,37 +15,34 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "instrutores")
-@Entity(name = "Instrutor")
+@Table(name = "alunos")
+@Entity(name = "Aluno")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Instrutor {
+public class Aluno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Boolean ativo;
     private String nome;
     private String email;
-    private String cnh;
-    private String telefone;
-    @Enumerated(EnumType.STRING)
-    private Especialidade especialidade;
+	private String telefone;
+	private String cpf;
     @Embedded
-    private EnderecoVO endereco;
+	private EnderecoVO endereco;
+	private Boolean ativo;
 
-    public Instrutor(InstrutorCreateDTO dados) {
-        this.ativo = true;
+    public Aluno(AlunoCreateDTO dados) {
         this.nome = dados.nome();
         this.email = dados.email();
-        this.cnh = dados.cnh();
         this.telefone = dados.telefone();
-        this.especialidade = dados.especialidade();
+        this.cpf = dados.cpf();
         this.endereco = new EnderecoVO(dados.endereco());
+        this.ativo = true;
     }
 
-    public void atualizarInformacoes(@Valid InstrutorUpdateDTO dados) {
+    public void atualizarInformacoes(@Valid AlunoUpdateDTO dados){
         if (dados.nome() != null) {
             this.nome = dados.nome();
         }

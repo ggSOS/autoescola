@@ -1,11 +1,11 @@
-# javaprojects
+# autoescola
 - projeto Java Back End com Spring Boot para uma Auto Escola
 
 # MySQL
 - iniciar servidor por cmd
-```powershell
-    net start mysql95
-```
+    ```powershell
+        net start mysql95
+    ```
 - Alterar Username e Password em application.properties
 - Manipulação do banco pelo MySQL Workbench
     - criar banco de dados

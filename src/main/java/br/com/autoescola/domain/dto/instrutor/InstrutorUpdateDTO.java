@@ -1,8 +1,9 @@
-package br.com.autoescola.domain.dto;
+package br.com.autoescola.domain.dto.instrutor;
 
+import br.com.autoescola.domain.dto.EnderecoDTO;
 import jakarta.validation.constraints.NotNull;
 
-public record DadosAtualizacaoInstrutor(
+public record InstrutorUpdateDTO(
         @NotNull
         Long id,
 

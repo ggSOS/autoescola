@@ -7,7 +7,7 @@ Create Table INSTRUTORES(
     cnh             VarChar(11)     Not Null    Unique,
     especialidade   VarChar(100)    Not Null,
     logradouro      VarChar(255)    Not Null,
-    numero          VarChar(20)     Not Null,
+    numero          VarChar(20),
     complemento     VarChar(100),
     bairro          VarChar(100)    Not Null,
     cidade          VarChar(100)    Not Null,

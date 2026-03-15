@@ -1,5 +1,6 @@
-package br.com.autoescola.domain.dto;
+package br.com.autoescola.domain.dto.instrutor;
 
+import br.com.autoescola.domain.dto.EnderecoDTO;
 import br.com.autoescola.domain.enums.Especialidade;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -7,7 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-public record InstrutorDTO(
+public record InstrutorCreateDTO(
     // @NotBlank serve para null e "", é mais que @NotNull ent, recomendado para Strings
     @NotBlank    
     String nome,
