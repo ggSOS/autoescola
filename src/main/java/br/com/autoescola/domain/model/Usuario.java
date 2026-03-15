@@ -3,6 +3,7 @@ package br.com.autoescola.domain.model;
 import java.util.Collection;
 import java.util.List;
 
+import jakarta.annotation.Nonnull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,6 +36,24 @@ public class Usuario implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role perfil;
 
+    public Usuario(@Nonnull br.com.autoescola.domain.dto.usuario.UsuarioCreateDTO dados, String senhaEncriptada) {
+        this.login = dados.login();
+        this.senha = senhaEncriptada;
+        this.perfil = dados.perfil();
+    }
+
+    public void atualizarInformacoes(@Nonnull br.com.autoescola.domain.dto.usuario.UsuarioUpdateDTO dados) {
+        if (dados.login() != null) {
+            this.login = dados.login();
+        }
+        if (dados.perfil() != null) {
+            this.perfil = dados.perfil();
+        }
+    }
+
+    public void alterarSenha(String novaSenhaEncriptada) {
+        this.senha = novaSenhaEncriptada;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
