@@ -2,7 +2,6 @@ package br.com.autoescola.infra.controller;
 
 import java.net.URI;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -18,21 +17,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.autoescola.domain.dto.instrutor.InstrutorUpdateDTO;
 import br.com.autoescola.domain.dto.instrutor.DadosDetalhamentoInstrutorDTO;
 import br.com.autoescola.domain.dto.instrutor.InstrutorCreateDTO;
+import br.com.autoescola.domain.dto.instrutor.InstrutorUpdateDTO;
 import br.com.autoescola.domain.dto.instrutor.ListagemInstrutorDTO;
 import br.com.autoescola.domain.model.Instrutor;
 import br.com.autoescola.domain.repository.InstrutorRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/instrutores")
 public class InstrutorController {
 
-    @Autowired
-    private InstrutorRepository repository;
+    private final InstrutorRepository repository;
 
     @PostMapping
     @Transactional
