@@ -13,6 +13,6 @@ Create Table alunos(
     cidade          VarChar(100)    Not Null,
     uf              VarChar(2)      Not Null,
     cep             VarChar(8)      Not Null,
-	ativo		    TinyInt
+	ativo		    TinyInt,
     primary key(id)
 );
