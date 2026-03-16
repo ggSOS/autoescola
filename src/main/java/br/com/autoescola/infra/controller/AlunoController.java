@@ -59,15 +59,6 @@ public class AlunoController {
         return ResponseEntity.created(uri).body(new AlunoResponseDTO(aluno));
     }
 
-    @DeleteMapping("/{id}")
-    @Transactional
-    public ResponseEntity<AlunoResponseDTO> deletarAlunos(@PathVariable Long id) {
-        Aluno aluno = repository.getReferenceById(id);
-        aluno.excluir();
-        return ResponseEntity.status(HttpStatus.NO_CONTENT)
-                .body(new AlunoResponseDTO(aluno));
-    }
-
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<AlunoResponseDTO> atualizarAluno(
@@ -76,5 +67,14 @@ public class AlunoController {
         Aluno aluno = repository.getReferenceById(id);
         aluno.atualizarInformacoes(dados);
         return ResponseEntity.ok(new AlunoResponseDTO(aluno));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<AlunoResponseDTO> deletarAlunos(@PathVariable Long id) {
+        Aluno aluno = repository.getReferenceById(id);
+        aluno.excluir();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                .body(new AlunoResponseDTO(aluno));
     }
 }
