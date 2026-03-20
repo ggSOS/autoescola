@@ -14,5 +14,5 @@ Create Table alunos(
     uf              VarChar(2)      Not Null,
     cep             VarChar(8)      Not Null,
 	ativo		    TinyInt,
-    primary key(id)
+    Primary Key(id)
 );

@@ -13,5 +13,5 @@ Create Table INSTRUTORES(
     cidade          VarChar(100)    Not Null,
     uf              VarChar(2)      Not Null,
     cep             VarChar(8)      Not Null,
-    primary key(id)
+    Primary Key(id)
 );
