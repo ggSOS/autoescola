@@ -1,8 +1,9 @@
-package br.com.autoescola.domain.repository;
+package br.com.autoescola.domain.service;
 
 import br.com.autoescola.domain.dto.instrutor.DadosDetalhamentoInstrutorDTO;
 import br.com.autoescola.domain.dto.instrutor.InstrutorCreateDTO;
 import br.com.autoescola.domain.model.Instrutor;
+import br.com.autoescola.domain.repository.InstrutorRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

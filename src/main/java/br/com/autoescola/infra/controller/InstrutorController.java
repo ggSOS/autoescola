@@ -3,7 +3,7 @@ package br.com.autoescola.infra.controller;
 import java.net.URI;
 import java.util.Optional;
 
-import br.com.autoescola.domain.repository.InstrutorService;
+import br.com.autoescola.domain.service.InstrutorService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
