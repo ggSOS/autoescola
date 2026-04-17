@@ -29,27 +29,35 @@ public class EnderecoVO {
         this.cep = dados.cep();
     }
 
-    public void atualizarInformacoes(EnderecoDTO dados) {
-        if( dados.logradouro() != null){
-            this.logradouro = dados.logradouro();
+    public void atualizarInformacoes(
+            String logradouro,
+            String numero,
+            String complemento,
+            String bairro,
+            String cidade,
+            String uf,
+            String cep
+    ) {
+        if(logradouro != null){
+            this.logradouro = logradouro;
         }
-        if( dados.numero() != null){
-            this.numero = dados.numero();
+        if(numero != null){
+            this.numero = numero;
         }
-        if( dados.complemento() != null){
-            this.complemento = dados.complemento();
+        if(complemento != null){
+            this.complemento = complemento;
         }
-        if( dados.bairro() != null){
-            this.bairro = dados.bairro();
+        if(bairro != null){
+            this.bairro = bairro;
         }
-        if( dados.cidade() != null){
-            this.cidade = dados.cidade();
+        if(cidade != null){
+            this.cidade = cidade;
         }
-        if( dados.uf() != null){
-            this.uf = dados.uf();
+        if(uf != null){
+            this.uf = uf;
         }
-        if( dados.cep() != null){
-            this.cep = dados.cep();
+        if(cep != null){
+            this.cep = cep;
         }
     }
 }

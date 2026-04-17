@@ -1,32 +1,17 @@
 package br.com.autoescola.adapter.in.controller;
 
-import java.net.URI;
-import java.util.Optional;
-
-import br.com.autoescola.application.core.usecase.InstrutorService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import br.com.autoescola.adapter.in.controller.response.instrutor.DadosDetalhamentoInstrutorDTO;
 import br.com.autoescola.adapter.in.controller.request.instrutor.InstrutorCreateDTO;
-import br.com.autoescola.adapter.in.controller.request.instrutor.InstrutorUpdateDTO;
+import br.com.autoescola.adapter.in.controller.response.instrutor.DadosDetalhamentoInstrutorDTO;
 import br.com.autoescola.adapter.in.controller.response.instrutor.ListagemInstrutorDTO;
-import br.com.autoescola.application.core.domain.model.Instrutor;
-import jakarta.transaction.Transactional;
+import br.com.autoescola.application.core.usecase.InstrutorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
 
 @RequiredArgsConstructor
 @RestController
@@ -41,7 +26,7 @@ public class InstrutorController {
     public ResponseEntity<DadosDetalhamentoInstrutorDTO> cadastrarInstrutor(
             @RequestBody @Valid InstrutorCreateDTO dados,
             UriComponentsBuilder uriBuilder) {
-        DadosDetalhamentoInstrutorDTO dto = service.cadastrar(dados);
+        DadosDetalhamentoInstrutorDTO dto = service.cadastrarInstrutores(dados);
         URI uri = uriBuilder
                 .path("/instrutores/{id}")
                 .buildAndExpand(dto.id())
@@ -56,10 +41,7 @@ public class InstrutorController {
     // @PageableDefault seta o padrão(sem adicionar modificadores no enpoint) da
     // busca do frontend
     public ResponseEntity<Page<ListagemInstrutorDTO>> listarInstrutores(
-            @PageableDefault(size = 10, sort = { "nome" }) Pageable paginacao) {
-        Page<ListagemInstrutorDTO> page = service.findAllByAtivoTrue(paginacao).map(ListagemInstrutorDTO::new);
-        return ResponseEntity.ok(page);
-    }
+        return ResponseEntity.ok(service.li);
 
     @GetMapping("/{id}")
     public ResponseEntity<DadosDetalhamentoInstrutorDTO> detalharInstrutor(@PathVariable Long id) {

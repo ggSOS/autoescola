@@ -13,6 +13,7 @@ import br.com.autoescola.exception.type.aluno.AlunoNotFoundException;
 import br.com.autoescola.exception.type.instrutor.EspecialidadeException;
 import br.com.autoescola.exception.type.instrutor.InstrutorNotFoundException;
 import br.com.autoescola.exception.type.instrucao.InvalidDateException;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,8 @@ public class InstrucaoService{
     private final InstrucaoRepository instrucaoRepository;
     private final List<ValidadorAgendamento> validadoresAgendamento;
 
-    public InstrucaoResponseDTO agendar(@Valid InstrucaoCreateDTO dados) throws AlunoNotFoundException {
+    @Transactional
+    public InstrucaoResponseDTO agendar(InstrucaoCreateDTO dados) {
         if(!alunoRepository.existsById(dados.idAluno())){
             throw new AlunoNotFoundException("Id do aluno informado não existe.");
         }

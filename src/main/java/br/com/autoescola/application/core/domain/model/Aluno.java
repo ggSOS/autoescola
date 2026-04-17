@@ -55,6 +55,7 @@ public class Aluno {
     }
 
     public void excluir() {
+        this.nome = "unknown";
         this.ativo = false;
     }
 }

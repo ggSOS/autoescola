@@ -15,7 +15,6 @@ import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
@@ -53,19 +52,55 @@ public class Instrutor {
         this.endereco = new EnderecoVO(dados.endereco());
     }
 
-    public void atualizarInformacoes(@Valid InstrutorUpdateDTO dados) {
-        if (dados.nome() != null) {
-            this.nome = dados.nome();
+    public Long getId() {
+        return id;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public String getCnh() {
+        return cnh;
+    }
+
+    public Especialidade getEspecialidade() {
+        return especialidade;
+    }
+
+    public EnderecoVO getEndereco() {
+        return endereco;
+    }
+
+    public void atualizarInformacoes(
+            String nome,
+            String telefone,
+            EnderecoVO endereco) {
+        if (nome != null) {
+            this.nome = nome;
         }
-        if (dados.telefone() != null) {
-            this.telefone = dados.telefone();
+        if (telefone != null) {
+            this.telefone = telefone;
         }
-        if (dados.endereco() != null) {
-            this.endereco.atualizarInformacoes(dados.endereco());
+        if (endereco != null) {
+            this.endereco.atualizarInformacoes(endereco);
         }
     }
 
     public void excluir() {
+        this.nome = "unknown";
         this.ativo = false;
     }
 }

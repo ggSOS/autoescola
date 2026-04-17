@@ -1,10 +1,10 @@
-package br.com.autoescola.adapter.out.repository.mapper;
+package br.com.autoescola.adapter.in.controller.mapper;
 
 import br.com.autoescola.adapter.in.controller.request.endereco.EnderecoDTO;
 import br.com.autoescola.application.core.domain.vo.EnderecoVO;
 
 public class EnderecoMapper {
-    public EnderecoVO EnderecoToDomain(EnderecoDTO dados){
+    public EnderecoVO toDomain(EnderecoDTO dados){
         return new EnderecoVO(
                 dados.logradouro(),
                 dados.numero(),
@@ -15,4 +15,6 @@ public class EnderecoMapper {
                 dados.cep()
         );
     }
+
+    public Endere
 }
