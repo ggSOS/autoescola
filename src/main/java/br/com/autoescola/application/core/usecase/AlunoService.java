@@ -1,7 +1,10 @@
 package br.com.autoescola.application.core.usecase;
 
+import br.com.autoescola.adapter.in.controller.mapper.AlunoDTOMapper;
 import br.com.autoescola.adapter.in.controller.request.aluno.AlunoCreateDTO;
 import br.com.autoescola.adapter.in.controller.request.aluno.AlunoUpdateDTO;
+import br.com.autoescola.adapter.in.controller.response.aluno.AlunoDetailedResponseDTO;
+import br.com.autoescola.adapter.in.controller.response.aluno.AlunoResponseDTO;
 import br.com.autoescola.adapter.out.repository.entity.AlunoEntity;
 import br.com.autoescola.adapter.out.repository.mapper.AlunoEntityMapper;
 import br.com.autoescola.adapter.out.repository.persistance.AlunoRepository;
@@ -15,49 +18,53 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AlunoService implements AlunoServicePort {
+public class AlunoService {
 
     private final AlunoRepository repository;
-    private final AlunoEntityMapper mapper;
+    private final AlunoDTOMapper dtoMapper;
+    private final AlunoEntityMapper entityMapper;
 
-    @Override
-    public Page<Aluno> listarAlunos(Pageable paginacao) {
-        return repository.findAllByAtivoTrue(paginacao).map(mapper::toDomain);
+    @Transactional
+    public AlunoDetailedResponseDTO cadastrarAluno(AlunoCreateDTO dados) {
+        Aluno aluno = dtoMapper.toDomain(dados);
+        AlunoEntity entity = repository.save(entityMapper.toEntity(aluno));
+        return dtoMapper.toDetailedResponseDTO(entityMapper.toDomain(entity));
     }
 
-    @Override
-    public Aluno detalharAluno(Long id) {
+    public Page<AlunoResponseDTO> listarAlunos(Pageable paginacao) {
+        return repository
+                .findAllByAtivoTrue(paginacao)
+                .map(entityMapper::toDomain)
+                .map(dtoMapper::toResponseDTO);
+    }
+
+    public AlunoDetailedResponseDTO detalharAluno(Long id) {
         return repository.findById(id)
-                .map(mapper::toDomain)
-                .orElseThrow(() -> new AlunoNotFoundException("Aluno não encontrado com o id: " + id));
+                .map(entityMapper::toDomain)
+                .map(dtoMapper::toDetailedResponseDTO)
+                .orElseThrow(() -> new AlunoNotFoundException(
+                        "Aluno não encontrado com o id: " + id));
     }
 
-    @Override
     @Transactional
-    public Aluno cadastrarAluno(AlunoCreateDTO dados) {
-        Aluno aluno = new Aluno(dados);
-        AlunoEntity entity = repository.save(mapper.toEntity(aluno));
-        return mapper.toDomain(entity);
-    }
-
-    @Override
-    @Transactional
-    public Aluno atualizarAluno(Long id, AlunoUpdateDTO dados) {
+    public AlunoDetailedResponseDTO atualizarAluno(Long id, AlunoUpdateDTO dados) {
         AlunoEntity entity = repository.findById(id)
-                .orElseThrow(() -> new AlunoNotFoundException("Aluno não encontrado com o id: " + id));
-        Aluno aluno = mapper.toDomain(entity);
+                .orElseThrow(() -> new AlunoNotFoundException(
+                    "Aluno não encontrado com o id: " + id));
+        Aluno aluno = entityMapper.toDomain(entity);
         aluno.atualizarInformacoes(dados);
-        repository.save(mapper.toEntity(aluno));
-        return aluno;
+        repository.save(entityMapper.toEntity(aluno));
+        return dtoMapper.toDetailedResponseDTO(aluno);
     }
 
-    @Override
+
     @Transactional
     public void deletarAluno(Long id) {
         AlunoEntity entity = repository.findById(id)
-                .orElseThrow(() -> new AlunoNotFoundException("Aluno não encontrado com o id: " + id));
-        Aluno aluno = mapper.toDomain(entity);
+                .orElseThrow(() -> new AlunoNotFoundException(
+                    "Aluno não encontrado com o id: " + id));
+        Aluno aluno = entityMapper.toDomain(entity);
         aluno.excluir();
-        repository.save(mapper.toEntity(aluno));
+        repository.save(entityMapper.toEntity(aluno));
     }
 }

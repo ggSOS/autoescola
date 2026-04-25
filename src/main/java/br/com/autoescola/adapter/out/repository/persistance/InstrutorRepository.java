@@ -1,13 +1,14 @@
 package br.com.autoescola.adapter.out.repository.persistance;
 
-import br.com.autoescola.adapter.out.repository.entity.InstrutorEntity;
-import br.com.autoescola.application.core.domain.enums.Especialidade;
+import java.time.LocalDateTime;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.time.LocalDateTime;
+import br.com.autoescola.adapter.out.repository.entity.InstrutorEntity;
+import br.com.autoescola.application.core.domain.enums.Especialidade;
 
 public interface InstrutorRepository extends JpaRepository<InstrutorEntity, Long> {
 

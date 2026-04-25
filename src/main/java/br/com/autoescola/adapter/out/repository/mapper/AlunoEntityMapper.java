@@ -1,32 +1,34 @@
 package br.com.autoescola.adapter.out.repository.mapper;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import br.com.autoescola.adapter.out.repository.entity.AlunoEntity;
 import br.com.autoescola.application.core.domain.model.Aluno;
-import org.springframework.stereotype.Component;
 
 @Component
+@Service
 public class AlunoEntityMapper {
-    public Aluno toDomain(AlunoEntity entity) {
+
+    public Aluno toDomain(AlunoEntity dados) {
         return new Aluno(
-                entity.getId(),
-                entity.getNome(),
-                entity.getEmail(),
-                entity.getTelefone(),
-                entity.getCpf(),
-                entity.getEndereco(),
-                entity.getAtivo()
-        );
+                dados.getId(),
+                dados.getNome(),
+                dados.getEmail(),
+                dados.getTelefone(),
+                dados.getCpf(),
+                dados.getEndereco(),
+                dados.getAtivo());
     }
 
-    public AlunoEntity toEntity(Aluno domain) {
+    public AlunoEntity toEntity(Aluno dados) {
         return new AlunoEntity(
-                domain.getId(),
-                domain.getNome(),
-                domain.getEmail(),
-                domain.getTelefone(),
-                domain.getCpf(),
-                domain.getEndereco(),
-                domain.getAtivo()
-        );
+                dados.getId(),
+                dados.getNome(),
+                dados.getEmail(),
+                dados.getTelefone(),
+                dados.getCpf(),
+                dados.getEndereco(),
+                dados.getAtivo());
     }
 }

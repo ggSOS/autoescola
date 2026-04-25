@@ -1,10 +1,11 @@
 package br.com.autoescola.adapter.out.repository.persistance;
 
-import br.com.autoescola.adapter.out.repository.entity.AlunoEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import br.com.autoescola.adapter.out.repository.entity.AlunoEntity;
 
 public interface AlunoRepository extends JpaRepository<AlunoEntity, Long> {
 

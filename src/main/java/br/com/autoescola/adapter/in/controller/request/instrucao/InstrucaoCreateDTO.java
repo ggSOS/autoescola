@@ -8,16 +8,11 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public record InstrucaoCreateDTO(
-        @NotNull
-        Long idAluno,
+        @NotNull Long idAluno,
 
         Long idInstrutor,
 
         Especialidade especialidade,
 
-        @NotNull
-        @Future
-        @JsonFormat(pattern = "dd/MM/yyyy - HH:mm")
-        LocalDateTime data
-) {
+        @NotNull @Future @JsonFormat(pattern = "dd/MM/yyyy - HH:mm") LocalDateTime data) {
 }

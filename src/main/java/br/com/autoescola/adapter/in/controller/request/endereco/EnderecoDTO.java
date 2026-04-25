@@ -4,27 +4,21 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 public record EnderecoDTO(
-    @NotBlank
-    String logradouro,
+        @NotBlank String logradouro,
 
-    String numero,
+        String numero,
 
-    String complemento,
+        String complemento,
 
-    @NotBlank
-    String bairro,
+        @NotBlank String bairro,
 
-    @NotBlank
-    String cidade,
+        @NotBlank String cidade,
 
-    // "[a-z A-Z]{2}" = campo de String com 2 chars de a-z maiúsculo ou minúsculo(diferente de A-z, ler tabela ASCII)
-    @NotBlank
-    @Pattern(regexp = "[a-z A-Z]{2}")
-    String uf,
+        // "[a-z A-Z]{2}" = campo de String com 2 chars de a-z maiúsculo ou
+        // minúsculo(diferente de A-z, ler tabela ASCII)
+        @NotBlank @Pattern(regexp = "[a-z A-Z]{2}") String uf,
 
-    // "[0-9]{8}" = campo de String com 8 chars de 0-9
-    @NotBlank
-    @Pattern(regexp = "[0-9]{8}")
-    String cep
-    ) {
+        // "\\d{8}" = "[0-9]{8}"
+        // "[0-9]{8}" = campo de String com 8 chars de 0-9
+        @NotBlank @Pattern(regexp = "\\d{8}") String cep) { // todo verificar \\d
 }

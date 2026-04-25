@@ -22,11 +22,9 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-
     private String issuer = "autoescola;";
 
-
-    public String gerarToken(Usuario usuario){
+    public String gerarToken(Usuario usuario) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
@@ -34,13 +32,13 @@ public class TokenService {
                     .withSubject(usuario.getUsername())
                     .withExpiresAt(dataExpiracao())
                     .sign(algorithm);
-        } catch (JWTCreationException exception){
+        } catch (JWTCreationException exception) {
             throw new TokenGenerationException(
-                "Erro ao gerar o Token JWT", exception);
+                    "Erro ao gerar o Token JWT", exception);
         }
     }
 
-    public String getSubject(String tokenJWT){
+    public String getSubject(String tokenJWT) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
@@ -48,14 +46,17 @@ public class TokenService {
                     .build()
                     .verify(tokenJWT)
                     .getSubject();
-        } catch (JWTVerificationException exception){
+        } catch (JWTVerificationException exception) {
             throw new TokenValidationException(
-                "Token inválido ou expirado", exception);
+                    "Token inválido ou expirado", exception);
         }
     }
 
     private Instant dataExpiracao() {
-        return LocalDateTime.now().plusMinutes(30).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime
+                .now()
+                .plusMinutes(30)
+                .toInstant(ZoneOffset.of("-03:00"));
     }
 
 }

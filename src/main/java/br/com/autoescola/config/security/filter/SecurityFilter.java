@@ -30,6 +30,7 @@ public class SecurityFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
         String tokenJWT = recuperarToken(request);
+
         if(tokenJWT!=null){
             String subject = tokenService.getSubject(tokenJWT);
             UserDetails usuario = repository.findByLogin(subject);
@@ -42,6 +43,7 @@ public class SecurityFilter extends OncePerRequestFilter {
                     .getContext()
                     .setAuthentication(authentication);
         }
+        
         filterChain.doFilter(request, response);
     }
 

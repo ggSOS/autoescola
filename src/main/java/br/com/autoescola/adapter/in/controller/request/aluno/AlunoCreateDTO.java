@@ -9,23 +9,13 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public record AlunoCreateDTO(
-        @NotBlank
-        @Size(max = 100)
-        String nome,
+        @NotBlank @Size(max = 100) String nome,
 
-        @NotBlank
-        @Email
-        String email,
+        @NotBlank @Email String email,
 
-        @NotBlank
-        @Pattern(regexp = "\\d{10,11}")
-        String telefone,
+        @NotBlank @Pattern(regexp = "\\d{10,11}") String telefone,
 
-        @NotBlank
-        @Pattern(regexp = "\\d{11}")
-        String cpf,
+        @NotBlank @Pattern(regexp = "\\d{11}") String cpf,
 
-        @NotNull
-        @Valid
-        EnderecoDTO endereco) {
+        @NotNull @Valid EnderecoDTO endereco) {
 }

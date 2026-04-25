@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.autoescola.adapter.in.controller.request.usuario.DadosAutenticacao;
+import br.com.autoescola.adapter.in.controller.request.usuario.UsuarioAutenticacaoDTO;
 import br.com.autoescola.config.security.dto.DadosTokenJWT;
 import br.com.autoescola.application.core.domain.model.Usuario;
 import br.com.autoescola.config.security.service.TokenService;
@@ -26,7 +26,7 @@ public class AutenticacaoController {
     private final TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity<DadosTokenJWT> efetuarLogin(@RequestBody @Valid DadosAutenticacao dados){
+    public ResponseEntity<DadosTokenJWT> efetuarLogin(@RequestBody @Valid UsuarioAutenticacaoDTO dados){
         UsernamePasswordAuthenticationToken token
                 = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
         Authentication authentication = manager.authenticate(token);

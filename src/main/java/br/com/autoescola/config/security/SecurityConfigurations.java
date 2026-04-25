@@ -21,43 +21,46 @@ import lombok.RequiredArgsConstructor;
 // @EnableWebSecurity permitiria autorizazao nos proprios controllers
 public class SecurityConfigurations {
 
-    private final SecurityFilter securityFilter;
+        private final SecurityFilter securityFilter;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(sm -> sm
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/login",
-                                "/health-check")
-                        .permitAll()
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                return http
+                                .csrf(AbstractHttpConfigurer::disable)
+                                .sessionManagement(sm -> sm
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                .authorizeHttpRequests(auth -> auth
+                                                .requestMatchers(
+                                                                "/login",
+                                                                "/health-check")
+                                                .permitAll()
 
-                        .requestMatchers(HttpMethod.GET,
-                                "/instrutores/**",
-                                "/alunos/**")
-                        .permitAll()
+                                                .requestMatchers(HttpMethod.GET,
+                                                                "/instrutores/**",
+                                                                "/alunos/**")
+                                                .permitAll()
 
-                        .requestMatchers(
-                                "/instrutores",
-                                "/alunos/**")
-                        .hasAnyRole("ADMIN", "OWNER")
+                                                .requestMatchers(
+                                                                "/instrutores",
+                                                                "/alunos/**")
+                                                .hasAnyRole("ADMIN", "OWNER")
 
-                        .anyRequest()
-                        .authenticated())
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
-    }
+                                                .anyRequest()
+                                                .authenticated())
+                                .addFilterBefore(
+                                                securityFilter,
+                                                UsernamePasswordAuthenticationFilter.class)
+                                .build();
+        }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
+        @Bean
+        public AuthenticationManager authenticationManager(
+                        AuthenticationConfiguration configuration) throws Exception {
+                return configuration.getAuthenticationManager();
+        }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 }

@@ -1,30 +1,49 @@
 package br.com.autoescola.application.core.domain.model;
 
-
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 
-@Entity(name = "Instrucao")
-@Table(name = "instrucoes")
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
+import br.com.autoescola.application.core.domain.enums.MotivoCancelamento;
+
 public class Instrucao {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "aluno_id")
     private Aluno aluno;
-    @ManyToOne
-    @JoinColumn(name = "instrutor_id")
     private Instrutor instrutor;
     private LocalDateTime data;
+    private MotivoCancelamento motivoCancelamento;
 
+    public Instrucao() {
+    }
+
+    public Instrucao(
+            Long id,
+            Aluno aluno,
+            Instrutor instrutor,
+            LocalDateTime data,
+            MotivoCancelamento motivoCancelamento) {
+        this.id = id;
+        this.aluno = aluno;
+        this.instrutor = instrutor;
+        this.data = data;
+        this.motivoCancelamento = motivoCancelamento;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Aluno getAluno() {
+        return aluno;
+    }
+
+    public Instrutor getInstrutor() {
+        return instrutor;
+    }
+
+    public LocalDateTime getData() {
+        return data;
+    }
+
+    public MotivoCancelamento getMotivoCancelamento() {
+        return motivoCancelamento;
+    }
 }

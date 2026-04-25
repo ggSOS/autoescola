@@ -19,7 +19,7 @@ public class ValidadorHorarioFuncionamento implements ValidadorAgendamento {
         boolean preAbertura = agendamento.getHour() < 6;
         boolean posFechamento = agendamento.getHour() > (21 - 1);
 
-        if (domingo || preAbertura || posFechamento){
+        if (Boolean.TRUE.equals(domingo) || Boolean.TRUE.equals(preAbertura) || Boolean.TRUE.equals(posFechamento)){
             throw new DateTimeException("Tentativa de agendamento fora do horário de funcionamento.");
         }
     }

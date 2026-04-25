@@ -1,22 +1,8 @@
 package br.com.autoescola.application.core.domain.model;
 
-import br.com.autoescola.adapter.in.controller.request.instrutor.InstrutorUpdateDTO;
 import br.com.autoescola.adapter.in.controller.request.instrutor.InstrutorCreateDTO;
 import br.com.autoescola.application.core.domain.enums.Especialidade;
 import br.com.autoescola.application.core.domain.vo.EnderecoVO;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
 
 public class Instrutor {
     private Long id;
@@ -31,7 +17,15 @@ public class Instrutor {
     public Instrutor() {
     }
 
-    public Instrutor(Long id, Boolean ativo, String nome, String email, String cnh, String telefone, Especialidade especialidade, EnderecoVO endereco) {
+    public Instrutor(
+            Long id,
+            Boolean ativo,
+            String nome,
+            String email,
+            String cnh,
+            String telefone,
+            Especialidade especialidade,
+            EnderecoVO endereco) {
         this.id = id;
         this.ativo = ativo;
         this.nome = nome;
@@ -95,12 +89,20 @@ public class Instrutor {
             this.telefone = telefone;
         }
         if (endereco != null) {
-            this.endereco.atualizarInformacoes(endereco);
+            this.endereco.atualizarInformacoes(
+                    endereco.getLogradouro(),
+                    endereco.getNumero(),
+                    endereco.getComplemento(),
+                    endereco.getBairro(),
+                    endereco.getCidade(),
+                    endereco.getUf(),
+                    endereco.getCep());
         }
     }
 
     public void excluir() {
         this.nome = "unknown";
+        this.cnh = "unknown";
         this.ativo = false;
     }
 }
