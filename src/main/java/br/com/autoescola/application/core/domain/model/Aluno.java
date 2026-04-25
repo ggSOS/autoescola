@@ -3,35 +3,21 @@ package br.com.autoescola.application.core.domain.model;
 import br.com.autoescola.adapter.in.controller.request.aluno.AlunoCreateDTO;
 import br.com.autoescola.adapter.in.controller.request.aluno.AlunoUpdateDTO;
 import br.com.autoescola.application.core.domain.vo.EnderecoVO;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "alunos")
-@Entity(name = "Aluno")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 public class Aluno {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private String email;
-	private String telefone;
-	private String cpf;
-    @Embedded
-	private EnderecoVO endereco;
-	private Boolean ativo;
+    private String telefone;
+    private String cpf;
+    private EnderecoVO endereco;
+    private Boolean ativo;
 
     public Aluno(AlunoCreateDTO dados) {
         this.nome = dados.nome();
@@ -42,7 +28,7 @@ public class Aluno {
         this.ativo = true;
     }
 
-    public void atualizarInformacoes(@Valid AlunoUpdateDTO dados){
+    public void atualizarInformacoes(AlunoUpdateDTO dados){
         if (dados.nome() != null) {
             this.nome = dados.nome();
         }
@@ -55,7 +41,6 @@ public class Aluno {
     }
 
     public void excluir() {
-        this.nome = "unknown";
         this.ativo = false;
     }
 }

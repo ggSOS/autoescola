@@ -1,18 +1,17 @@
 package br.com.autoescola.adapter.out.repository.persistance;
 
+import br.com.autoescola.adapter.out.repository.entity.InstrutorEntity;
 import br.com.autoescola.application.core.domain.enums.Especialidade;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import br.com.autoescola.application.core.domain.model.Instrutor;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDateTime;
 
-public interface InstrutorRepository extends JpaRepository<Instrutor, Long> {
+public interface InstrutorRepository extends JpaRepository<InstrutorEntity, Long> {
 
-    Page<Instrutor> findAllByAtivoTrue(Pageable paginacao);
+    Page<InstrutorEntity> findAllByAtivoTrue(Pageable paginacao);
 
     @Query("""
             select i from Instrutor i
@@ -29,5 +28,5 @@ public interface InstrutorRepository extends JpaRepository<Instrutor, Long> {
             order by rand()
             limit 1
             """)
-    Instrutor escolherInstrutorAleatorioDisponivel(Especialidade especialidade, LocalDateTime data);
+    InstrutorEntity escolherInstrutorAleatorioDisponivel(Especialidade especialidade, LocalDateTime data);
 }

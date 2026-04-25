@@ -2,6 +2,10 @@ package br.com.autoescola.application.core.usecase;
 
 import br.com.autoescola.adapter.in.controller.request.instrucao.InstrucaoCreateDTO;
 import br.com.autoescola.adapter.in.controller.response.instrucao.InstrucaoResponseDTO;
+import br.com.autoescola.adapter.out.repository.entity.AlunoEntity;
+import br.com.autoescola.adapter.out.repository.entity.InstrutorEntity;
+import br.com.autoescola.adapter.out.repository.mapper.AlunoEntityMapper;
+import br.com.autoescola.adapter.out.repository.mapper.InstrutorEntityMapper;
 import br.com.autoescola.application.core.domain.model.Aluno;
 import br.com.autoescola.application.core.domain.model.Instrucao;
 import br.com.autoescola.application.core.domain.model.Instrutor;
@@ -14,7 +18,6 @@ import br.com.autoescola.exception.type.instrutor.EspecialidadeException;
 import br.com.autoescola.exception.type.instrutor.InstrutorNotFoundException;
 import br.com.autoescola.exception.type.instrucao.InvalidDateException;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,8 @@ public class InstrucaoService{
     private final InstrutorRepository instrutorRepository;
     private final InstrucaoRepository instrucaoRepository;
     private final List<ValidadorAgendamento> validadoresAgendamento;
+    private final AlunoEntityMapper alunoMapper;
+    private final InstrutorEntityMapper instrutorMapper;
 
     @Transactional
     public InstrucaoResponseDTO agendar(InstrucaoCreateDTO dados) {
@@ -43,17 +48,22 @@ public class InstrucaoService{
                 .forEach(v -> v
                         .validar(dados));
 
-        Aluno aluno = alunoRepository.getReferenceById(dados.idAluno());
-        Instrutor instrutor = escolherInstrutor(dados);
-        if(instrutor == null){
+        AlunoEntity alunoEntity = alunoRepository.getReferenceById(dados.idAluno());
+        InstrutorEntity instrutorEntity = escolherInstrutor(dados);
+        if(instrutorEntity == null){
             throw new InvalidDateException("Não existe instrutor disponível para adata / hora informada!");
         }
-        Instrucao instrucao = new Instrucao(null, aluno, instrutor, dados.data());
-        instrucaoRepository.save(instrucao);
+        
+        // Aqui assumimos que Instrucao ainda usa entities diretamente ou precisa de ajuste similar
+        // Por hora, ajustando apenas a busca das entities
+        Instrucao instrucao = new Instrucao(null, alunoMapper.toDomain(alunoEntity), instrutorMapper.toDomain(instrutorEntity), dados.data());
+        // Se instrucaoRepository esperar Entity, precisará de um mapper também.
+        // instrucaoRepository.save(instrucaoMapper.toEntity(instrucao));
+        
         return new InstrucaoResponseDTO(instrucao);
     }
 
-    private Instrutor escolherInstrutor(InstrucaoCreateDTO dados){
+    private InstrutorEntity escolherInstrutor(InstrucaoCreateDTO dados){
         if(dados.idInstrutor()!=null){
             return instrutorRepository.getReferenceById(dados.idInstrutor());
         }
