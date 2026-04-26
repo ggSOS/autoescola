@@ -32,7 +32,8 @@ public class SecurityConfigurations {
                                 .authorizeHttpRequests(auth -> auth
                                                 .requestMatchers(
                                                                 "/login",
-                                                                "/health-check")
+                                                                "/health-check",
+                                                                "/error")
                                                 .permitAll()
 
                                                 .requestMatchers(HttpMethod.GET,
@@ -41,8 +42,9 @@ public class SecurityConfigurations {
                                                 .permitAll()
 
                                                 .requestMatchers(
-                                                                "/instrutores",
-                                                                "/alunos/**")
+                                                                "/instrutores/**",
+                                                                "/alunos/**",
+                                                                "/instrucoes/**")
                                                 .hasAnyRole("ADMIN", "OWNER")
 
                                                 .anyRequest()

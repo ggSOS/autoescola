@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import br.com.autoescola.adapter.out.repository.mapper.UsuarioEntityMapper;
 import br.com.autoescola.adapter.out.repository.persistance.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -13,9 +14,10 @@ import lombok.RequiredArgsConstructor;
 public class AutenticacaoService implements UserDetailsService {
 
     private final UsuarioRepository repository;
+    private final UsuarioEntityMapper usuarioEntityMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByLogin(username);
+        return usuarioEntityMapper.toDomain(repository.findByLogin(username));
     }
 }

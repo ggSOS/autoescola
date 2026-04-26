@@ -20,5 +20,5 @@ public record EnderecoDTO(
 
         // "\\d{8}" = "[0-9]{8}"
         // "[0-9]{8}" = campo de String com 8 chars de 0-9
-        @NotBlank @Pattern(regexp = "\\d{8}") String cep) { // todo verificar \\d
+        @NotBlank @Pattern(regexp = "\\d{8}") String cep) {
 }

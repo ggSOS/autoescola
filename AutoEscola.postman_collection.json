@@ -85,7 +85,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\": \"{{$randomFullName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"telefone\": \"{{$randomPhoneNumber}}\",\n    \"cnh\": \"07778889990\",\n    \"especialidade\": \"MOTOS\",\n    \"endereco\": {\n        \"logradouro\": \"{{$randomStreetName}}\",\n        \"numero\": \"{{$randomInt}}\",\n        \"complemento\": \"Apto. {{$randomInt}}\",\n        \"bairro\": \"{{$randomCity}}\",\n        \"cidade\": \"{{$randomCity}}\",\n        \"uf\": \"SP\",\n        \"cep\": \"87654321\"\n    }\n}",
+							"raw": "{\n    \"nome\": \"Teste\",\n    \"email\": \"teste@email.com\",\n    \"telefone\": \"11999999999\",\n    \"cnh\": \"123456789\",\n    \"especialidade\": \"MOTOS\",\n    \"endereco\": {\n        \"logradouro\": \"{{$randomStreetName}}\",\n        \"numero\": \"{{$randomInt}}\",\n        \"complemento\": \"Apto. {{$randomInt}}\",\n        \"bairro\": \"{{$randomCity}}\",\n        \"cidade\": \"{{$randomCity}}\",\n        \"uf\": \"SP\",\n        \"cep\": \"87654321\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -491,7 +491,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idAluno\": 1,\r\n    \"idInstrutor\": 1,\r\n    \"data\": \"25/10/2025 07:00\"\r\n}",
+							"raw": "{\r\n    \"idAluno\": 1,\r\n    \"idInstrutor\": 1,\r\n    \"data\": \"28/10/2026 - 10:00\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

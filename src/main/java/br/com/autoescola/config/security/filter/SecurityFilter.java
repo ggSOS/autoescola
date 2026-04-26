@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.com.autoescola.adapter.out.repository.persistance.UsuarioRepository;
+import br.com.autoescola.application.core.service.AutenticacaoService;
 import br.com.autoescola.config.security.service.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,7 +23,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
 
-    private final UsuarioRepository repository;
+    private final AutenticacaoService autenticacaoService;
 
     @Override
     protected void doFilterInternal(
@@ -33,7 +34,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if(tokenJWT!=null){
             String subject = tokenService.getSubject(tokenJWT);
-            UserDetails usuario = repository.findByLogin(subject);
+            UserDetails usuario = autenticacaoService.loadUserByUsername(subject);
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
                             usuario,
