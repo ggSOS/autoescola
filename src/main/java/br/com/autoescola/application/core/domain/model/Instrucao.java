@@ -46,4 +46,8 @@ public class Instrucao {
     public MotivoCancelamento getMotivoCancelamento() {
         return motivoCancelamento;
     }
+
+    public void cancelar(MotivoCancelamento motivo) {
+        this.motivoCancelamento = motivo;
+    }
 }

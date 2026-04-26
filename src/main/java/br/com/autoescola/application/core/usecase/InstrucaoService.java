@@ -2,6 +2,7 @@ package br.com.autoescola.application.core.usecase;
 
 import java.util.List;
 
+import br.com.autoescola.exception.type.instrucao.InstrucaoNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.com.autoescola.adapter.in.controller.request.instrucao.InstrucaoCreateDTO;
@@ -92,8 +93,16 @@ public class InstrucaoService {
 
     @Transactional
     public void cancelar(InstrucaoDeleteDTO dados) {
-        // todo
-        return;
+        if (!instrucaoRepository.existsById(dados.id())) {
+            throw new InstrucaoNotFoundException("Id da instrução informado não existe.");
+        }
+
+        validadorCancelamentos.forEach(v -> v.validar(dados));
+
+        var entity = instrucaoRepository.getReferenceById(dados.id());
+        var instrucao = instrucaoEntityMapper.toDomain(entity);
+        instrucao.cancelar(dados.motivoCancelamento());
+        instrucaoRepository.save(instrucaoEntityMapper.toEntity(instrucao));
     }
 
 }
