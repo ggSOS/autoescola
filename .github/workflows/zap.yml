@@ -5,16 +5,45 @@ jobs:
   zap_scan:
     runs-on: ubuntu-latest
     name: Scan the web application
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: test_db
+          MYSQL_DATABASE: auto_escola
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: "21"
+          distribution: "temurin"
+          cache: "maven"
+
+      - name: Rodar Spring Boot
+        run: |
+          mvn spring-boot:run &
+        env:
+          SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/zap_test
+          SPRING_DATASOURCE_USERNAME: root
+          SPRING_DATASOURCE_PASSWORD: test_db
+
+      - name: Aguardar App subir
+        run: npx wait-on http://localhost:8080/actuator/health --timeout 60000
+
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.13.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          target: 'http://localhost:8080'
-          rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a'
+          target: "http://localhost:8080"
+          rules_file_name: ".zap/rules.tsv"
+          cmd_options: "-a"
 
 # action-full-scan@v0.13.0 - varredura profunda
 # action-baseline@v0.12.0 - varredura rápida

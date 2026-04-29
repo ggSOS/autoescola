@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import br.com.autoescola.adapter.out.repository.persistance.UsuarioRepository;
 import br.com.autoescola.application.core.service.AutenticacaoService;
 import br.com.autoescola.config.security.service.TokenService;
 import jakarta.servlet.FilterChain;

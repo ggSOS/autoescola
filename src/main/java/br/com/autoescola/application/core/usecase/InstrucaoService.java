@@ -2,13 +2,11 @@ package br.com.autoescola.application.core.usecase;
 
 import java.util.List;
 
-import br.com.autoescola.exception.type.instrucao.InstrucaoNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.com.autoescola.adapter.in.controller.request.instrucao.InstrucaoCreateDTO;
 import br.com.autoescola.adapter.in.controller.request.instrucao.InstrucaoDeleteDTO;
 import br.com.autoescola.adapter.in.controller.response.instrucao.InstrucaoResponseDTO;
-import br.com.autoescola.adapter.out.repository.entity.AlunoEntity;
 import br.com.autoescola.adapter.out.repository.entity.InstrutorEntity;
 import br.com.autoescola.adapter.out.repository.mapper.AlunoEntityMapper;
 import br.com.autoescola.adapter.out.repository.mapper.InstrucaoEntityMapper;
@@ -22,6 +20,7 @@ import br.com.autoescola.application.core.domain.model.Instrutor;
 import br.com.autoescola.application.core.validation.interfaces.ValidadorAgendamento;
 import br.com.autoescola.application.core.validation.interfaces.ValidadorCancelamento;
 import br.com.autoescola.exception.type.aluno.AlunoNotFoundException;
+import br.com.autoescola.exception.type.instrucao.InstrucaoNotFoundException;
 import br.com.autoescola.exception.type.instrucao.InvalidDateException;
 import br.com.autoescola.exception.type.instrutor.EspecialidadeException;
 import br.com.autoescola.exception.type.instrutor.InstrutorNotFoundException;
