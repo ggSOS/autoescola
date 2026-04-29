@@ -35,7 +35,13 @@ jobs:
           SPRING_DATASOURCE_PASSWORD: test_db
 
       - name: Aguardar App subir
-        run: npx wait-on http://localhost:8080/actuator/health --timeout 60000
+        run: npx wait-on http://localhost:8080/health-check --timeout 90000
+
+      - name: Debug Logs em caso de erro
+        if: failure()
+        run: |
+          echo "==== LOGS DO SPRING BOOT ===="
+          cat spring.log
 
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.13.0
