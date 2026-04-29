@@ -10,7 +10,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: test_db
-          MYSQL_DATABASE: auto_escola
+          MYSQL_DATABASE: zap_test
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -27,21 +27,24 @@ jobs:
           cache: "maven"
 
       - name: Rodar Spring Boot
-        run: |
-          mvn spring-boot:run &
         env:
           SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/zap_test
           SPRING_DATASOURCE_USERNAME: root
           SPRING_DATASOURCE_PASSWORD: test_db
+        run: |
+          mvn clean package -DskipTests
+          java -jar target/*.jar > ${{ github.workspace }}/spring.log 2>&1 &
 
       - name: Aguardar App subir
-        run: npx wait-on http://localhost:8080/health-check --timeout 90000
+        run: npx wait-on http://localhost:8080/health-check --timeout 120000
 
       - name: Debug Logs em caso de erro
         if: failure()
         run: |
-          echo "==== LOGS DO SPRING BOOT ===="
-          cat spring.log
+          echo "==== VERIFICANDO ARQUIVOS ===="
+          ls -l
+          echo "==== CONTEÚDO DO LOG (SE EXISTIR) ===="
+          cat ${{ github.workspace }}/spring.log || echo "Log não encontrado"
 
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.13.0
