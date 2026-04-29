@@ -1,6 +1,6 @@
 -- dialect: mysql
 
-Insert Into `auto_escola`.`usuarios`
+Insert Into usuarios
 (`id`, `login`, `senha`, `perfil`)
 Values
 ('1', 'adminLogin', '$2a$10$nGkOrbgR4iGHOPbR/ikPdO.RfhqB/XoH6//lTfjO6Ipmiy2G7iQ36', 'ADMIN'),

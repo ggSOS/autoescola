@@ -1,6 +1,6 @@
 -- dialect: mysql
 
-Insert Into `auto_escola`.`instrucoes` 
+Insert Into instrucoes
 (`aluno_id`, `instrutor_id`, `data`)
 Values
 (1, 1, '2026-05-01 10:30:00'),
