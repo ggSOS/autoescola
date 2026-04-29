@@ -5,6 +5,9 @@ jobs:
   zap_scan:
     runs-on: ubuntu-latest
     name: Scan the web application
+    permissions:
+      contents: read
+      issues: write
     services:
       mysql:
         image: mysql:8.0
@@ -36,7 +39,7 @@ jobs:
           java -jar target/*.jar > ${{ github.workspace }}/spring.log 2>&1 &
 
       - name: Aguardar App subir
-        run: npx wait-on http://localhost:8080/health-check --timeout 90000
+        run: npx wait-on http://localhost:8080/health-check --timeout 60000
 
       - name: Debug Logs em caso de erro
         if: failure()
@@ -51,7 +54,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           target: "http://localhost:8080"
-          rules_file_name: ".zap/rules.tsv"
           cmd_options: "-a"
 
 # action-full-scan@v0.13.0 - varredura profunda
