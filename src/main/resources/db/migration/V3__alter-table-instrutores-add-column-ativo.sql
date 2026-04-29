@@ -1,11 +1,11 @@
 -- dialect:mysql
 
-Alter Table INSTRUTORES
+Alter Table instrutores
 Add
 (
     ativo TinyInt   Not Null
 );
 
-Update INSTRUTORES
+Update instrutores
 Set
     ativo = 1;

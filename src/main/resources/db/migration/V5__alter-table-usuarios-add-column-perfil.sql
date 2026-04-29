@@ -1,11 +1,11 @@
 -- dialect: mysql
 
-Alter Table USUARIOS
+Alter Table usuarios
 Add
 (
     perfil  VarChar(10)  Not Null
 );
 
-Update USUARIOS
+Update usuarios
 Set
     perfil = "USER";

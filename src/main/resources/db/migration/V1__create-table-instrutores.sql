@@ -1,6 +1,6 @@
 -- dialect:mysql
 
-Create Table INSTRUTORES(
+Create Table instrutores(
     id              BigInt          Not Null    Auto_increment,
     nome            VarChar(100)    Not Null,
     email           VarChar(100)    Not Null    Unique,

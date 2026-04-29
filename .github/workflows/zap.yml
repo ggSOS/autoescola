@@ -36,14 +36,14 @@ jobs:
           java -jar target/*.jar > ${{ github.workspace }}/spring.log 2>&1 &
 
       - name: Aguardar App subir
-        run: npx wait-on http://localhost:8080/health-check --timeout 120000
+        run: npx wait-on http://localhost:8080/health-check --timeout 90000
 
       - name: Debug Logs em caso de erro
         if: failure()
         run: |
           echo "==== VERIFICANDO ARQUIVOS ===="
           ls -l
-          echo "==== CONTEÚDO DO LOG (SE EXISTIR) ===="
+          echo "==== CONTEÚDO DO LOG ===="
           cat ${{ github.workspace }}/spring.log || echo "Log não encontrado"
 
       - name: ZAP Scan
