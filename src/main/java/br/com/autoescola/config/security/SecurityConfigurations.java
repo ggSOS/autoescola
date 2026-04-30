@@ -33,7 +33,10 @@ public class SecurityConfigurations {
                                                 .requestMatchers(
                                                                 "/login",
                                                                 "/health-check",
-                                                                "/error")
+                                                                "/error",
+                                                                "/v3/api-docs/**",
+                                                                "/swagger-ui/**",
+                                                                "/swagger-ui.html")
                                                 .permitAll()
 
                                                 .requestMatchers(HttpMethod.GET,
