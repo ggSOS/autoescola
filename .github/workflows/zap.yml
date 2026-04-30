@@ -40,7 +40,7 @@ jobs:
           java -jar target/*.jar > ${{ github.workspace }}/spring.log 2>&1 &
 
       - name: Aguardar App subir
-        run: npx wait-on http://localhost:8080/health-check --timeout 60000
+        run: npx wait-on http://localhost:8080/health-check --timeout 90000
 
       - name: Debug Logs em caso de erro
         if: failure()
@@ -50,13 +50,27 @@ jobs:
           echo "==== CONTEÚDO DO LOG ===="
           cat ${{ github.workspace }}/spring.log || echo "Log não encontrado"
 
+      - name: Obter token JWT
+        run: |
+          TOKEN=$(curl -s -X POST http://localhost:8080/login \
+            -H "Content-Type: application/json" \
+            -d '{"login":"adminLogin","senha":"admin"}' | jq -r '.token')
+
+          echo "TOKEN=$TOKEN" >> $GITHUB_ENV
+
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.13.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           target: "http://localhost:8080"
           fail_action: true
-          cmd_options: "-a"
+          cmd_options: "-z \"-config replacer.full_list(0).replacement=Bearer $TOKEN\""
+
+      - name: Upload ZAP Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-report
+          path: report_html.html
 
 # action-full-scan@v0.13.0 - varredura profunda
 # action-baseline@v0.12.0 - varredura rápida
