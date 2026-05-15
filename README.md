@@ -10,13 +10,15 @@
 # MySQL
 - iniciar servidor por cmd
     ```powershell
-        net start mysql95
+    net start mysql95
     ```
 - Alterar Username e Password em application.properties
 - Manipulação do banco pelo MySQL Workbench
     - criar banco de dados
-        - Drop Database auto_escola
-        - Create Database auto_escola
+    ```sql
+    Drop Database If Exists auto_escola;
+    Create Database auto_escola;
+    ```
 
 
 # Dados para POSTMAN

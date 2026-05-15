@@ -4,6 +4,7 @@ import br.com.autoescola.adapter.in.controller.request.instrucao.InstrucaoCreate
 import br.com.autoescola.adapter.in.controller.request.instrucao.InstrucaoDeleteDTO;
 import br.com.autoescola.adapter.in.controller.response.instrucao.InstrucaoResponseDTO;
 import br.com.autoescola.application.core.usecase.InstrucaoService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/instrucoes")
+@SecurityRequirement(name = "bearer-key")
 public class InstrucaoController {
 
     private final InstrucaoService agenda;

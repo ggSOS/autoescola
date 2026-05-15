@@ -27,6 +27,25 @@ public class SecurityConfigurations {
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 return http
                                 .csrf(AbstractHttpConfigurer::disable)
+                                // .cors(cors -> cors
+                                //                 .configurationSource(request -> {
+                                //                         CorsConfiguration corsConfiguration = new CorsConfiguration();
+                                //                         corsConfiguration.setAllowedOrigins(
+                                //                                         List.of(
+                                //                                                         "https://meusite.com.br",
+                                //                                                         "https://127.128.0.10:8080"));
+                                //                         corsConfiguration.setAllowedMethods(
+                                //                                         List.of(
+                                //                                                         "GET",
+                                //                                                         "POST"));
+                                //                         corsConfiguration.setAllowedHeaders(
+                                //                                         List.of(
+                                //                                                         "Authorization",
+                                //                                                         "Content-TYP"));
+                                //                         corsConfiguration.setAllowCredentials(true);
+                                //                         return corsConfiguration;
+                                //                 }))
+                                // alternativa para o spring security
                                 .sessionManagement(sm -> sm
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                                 .authorizeHttpRequests(auth -> auth
